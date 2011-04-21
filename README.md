@@ -66,12 +66,11 @@ OpenLayers supports the ability to plot points to a layer on a map from a tab de
 
 In your map you need to specify the relative output URL for the result using the URL property:
 
-   var layer = new OpenLayers.Layer.Vector("Layer Name Here", {
-        strategies: [new OpenLayers.Strategy.BBOX({ resFactor: 1.1 })],
-        protocol: new OpenLayers.Protocol.HTTP({
-            url: "/mapdata/",
-            format: new OpenLayers.Format.Text()
-        })
-    });
-    
-    map.addLayers([wms, layer]); // Map and your overlay
+	var layer = new OpenLayers.Layer.Vector("Layer Name Here", {
+		strategies: [new OpenLayers.Strategy.BBOX({ resFactor: 1.1 })],
+		protocol: new OpenLayers.Protocol.HTTP({
+			url: "/mapdata/",
+			format: new OpenLayers.Format.Text()
+		})
+	});
+	map.addLayers([wms, layer]); // Map and your overlay
