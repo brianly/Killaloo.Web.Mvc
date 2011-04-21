@@ -11,3 +11,6 @@ obj
 
 # if you have pictures, windows will likely create those annoying index files
 Thumbs.db
+
+# mercurial
+.hg
