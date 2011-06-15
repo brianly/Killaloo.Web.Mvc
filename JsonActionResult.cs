@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Killaloo.Web.Mvc
 {
@@ -8,21 +9,21 @@ namespace Killaloo.Web.Mvc
     {
         public Object ObjectToSerialize { get; set; }
         public bool FormatResult { get; set; }
+        public bool UseIsoDateFormat { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
             context.HttpContext.Response.ContentType = "application/json";
 
-            string serialized;
+            var serializerSettings = new JsonSerializerSettings();
 
-            if (FormatResult)
+            if (UseIsoDateFormat)
             {
-                serialized = JsonConvert.SerializeObject(ObjectToSerialize, Formatting.Indented);
+                serializerSettings.Converters.Add(new IsoDateTimeConverter());
             }
-            else
-            {
-                serialized = JsonConvert.SerializeObject(ObjectToSerialize, Formatting.None);
-            }
+
+
+            string serialized = JsonConvert.SerializeObject(ObjectToSerialize, FormatResult ? Formatting.Indented : Formatting.None, serializerSettings);
 
             context.HttpContext.Response.Output.Write(serialized);
         }
